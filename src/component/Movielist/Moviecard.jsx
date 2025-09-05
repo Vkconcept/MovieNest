@@ -1,6 +1,6 @@
 import React from 'react';
 import './Moviecard.css';
-import Star from '../../assets/star.png';
+import StarIcon from '@mui/icons-material/Star'; // MUI star icon
 
 const Moviecard = ({ movie }) => {
   return (
@@ -23,7 +23,7 @@ const Moviecard = ({ movie }) => {
           <p>{movie.release_date}</p>
           <p>
             {movie.vote_average}
-            <img src={Star} alt="rating icon" className='card_emoji' />
+            <StarIcon sx={{ color: '#FFD700', fontSize: 16, marginLeft: '4px' }} />
           </p>
         </div>
         <p className="movie_description">

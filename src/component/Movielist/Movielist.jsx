@@ -4,12 +4,21 @@ import Moviecard from './Moviecard';
 import FilterGroup from './FilterGroup';
 import { FaSun, FaMoon } from 'react-icons/fa';
 
-const Movielist = ({ type, title, emoji }) => {
+// Import MUI icons
+import WhatshotIcon from '@mui/icons-material/Whatshot'; // fire/popular
+import StarIcon from '@mui/icons-material/Star';         // top rated
+import CelebrationIcon from '@mui/icons-material/Celebration'; // upcoming
+
+const iconStyle = { color: '#FFD700', marginLeft: '4px', fontSize: 20 };
+
+const Movielist = ({ type, title, emojiType }) => {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [minRating, setMinRating] = useState(0);
   const [sort, setSort] = useState({ by: 'default', order: 'asc' });
-  const [theme, setTheme] = useState('light');
+
+  // Default theme from localStorage or dark
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
 
   useEffect(() => {
     fetchMovies();
@@ -31,11 +40,8 @@ const Movielist = ({ type, title, emoji }) => {
   }
 
   const handleFilter = (rating) => {
-    if (rating === minRating) {
-      setMinRating(0);
-    } else {
-      setMinRating(rating);
-    }
+    if (rating === minRating) setMinRating(0);
+    else setMinRating(rating);
   }
 
   const handleSort = (e) => {
@@ -62,14 +68,28 @@ const Movielist = ({ type, title, emoji }) => {
   }, [sort, minRating, movies]);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+    setTheme(prev => {
+      const newTheme = prev === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      return newTheme;
+    });
+  }
+
+  // Map emojiType prop to MUI icon
+  const renderIcon = () => {
+    switch (emojiType) {
+      case 'fire': return <WhatshotIcon sx={iconStyle} />;
+      case 'star': return <StarIcon sx={iconStyle} />;
+      case 'party': return <CelebrationIcon sx={iconStyle} />;
+      default: return null;
+    }
   }
 
   return (
     <section className={`movie_list ${theme}`} id={type}>
       <header className='align_center movie_list_header'>
         <h2 className='align_center movie_list_heading'>
-          {title} <img src={emoji} alt={`${title} icon`} className='Navbar_emoji' />
+          {title} {renderIcon()}
         </h2>
 
         <div className='align_center movie_list_fs'>
