@@ -1,0 +1,29 @@
+.filter_container {
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  gap: 15px;                /* space between buttons */
+  margin-bottom: 10px;      /* space below for sort options */
+}
+
+.movie_filter_item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+}
+
+.movie_filter_item.active {
+  background-color: #ffe400;
+  color: #000;
+}
+
+.filter_star {
+  color: #ffe400;
+}

@@ -1,8 +1,10 @@
 import React from 'react';
+import { AiFillStar } from 'react-icons/ai';
+import './FilterGroup.css';
 
 const FilterGroup = ({ minRating, onRatingClick, options = [8, 7, 6] }) => {
   return (
-    <ul className="align_center movie_filter">
+    <ul className="movie_filter">
       {options.map(rating => (
         <li
           key={rating}
@@ -11,7 +13,8 @@ const FilterGroup = ({ minRating, onRatingClick, options = [8, 7, 6] }) => {
           role="button"
           aria-pressed={minRating === rating}
         >
-          {rating}+ Star
+          <span className="filter_rating">{rating} </span>
+          <AiFillStar className="filter_star" />
         </li>
       ))}
     </ul>
